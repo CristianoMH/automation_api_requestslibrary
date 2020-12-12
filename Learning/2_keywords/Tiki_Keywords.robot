@@ -12,12 +12,12 @@ Resource      ../imports.robot
     Create Session    session_login    ${tiki_base_url}
     
     #Headers data into API include content type and user agent (if needed)
-    &{headers}=    Create Dictionary    
+    ${headers}=    Create Dictionary    
     ...    Content-Type=${content_type}
     ...    User-Agent=${user_agent}
 
     #Body data in API
-    &{body}=    Create Dictionary    
+    ${body}=    Create Dictionary    
     ...    grant_type=${grant_type}
     ...    email=${email}
     ...    password=${password}
@@ -48,18 +48,18 @@ Resource      ../imports.robot
     Create Session    session_list_address    ${tiki_base_url}
 
     #Headers data into API include content type, user agent (if needed), x-access-token get from API Login
-    &{headers}=    Create Dictionary
+    ${headers}=    Create Dictionary
     ...    Content-Type=${content_type}
     ...    User-Agent=${user_agent}
     ...    x-access-token=${access_token}
 
     #Params data in API include page and limit
-    &{params}=    Create Dictionary
+    ${params}=    Create Dictionary
     ...    page=${page}
     ...    limit=${limit}
 
     #Send request to server with method GET, uri, headers and params
-    ${response}=    Get Request    session_list_address    uri=${get_list_address}    headers=&{headers}    params=&{params}
+    ${response}=    Get Request    session_list_address    uri=${get_list_address}    headers=${headers}    params=${params}
     
     #Get id of first element in list addresses 
     ${id}=    [Common] - Get value from response body    ${response.content}    $.data[2].id    
@@ -83,13 +83,13 @@ Resource      ../imports.robot
     Create Session    session_update    ${tiki_base_url}
     
     #Headers data into API include content type, user agent (if needed) and x-access-token get from API Login
-    &{headers}=    Create Dictionary    
+    ${headers}=    Create Dictionary    
     ...    Content-Type=${content_type}
     ...    User-Agent=${user_agent}
     ...    x-access-token=${access_token}
 
     #Body data in API
-    &{body}=    Create Dictionary    
+    ${body}=    Create Dictionary    
     ...    full_name=${full_name}
     ...    company=${company}
     ...    telephone=${telephone}
