@@ -18,12 +18,12 @@ ${page}     1
 ${limit}    10
 
 #Body of API Update Address
-${full_name}     Hoàng Văn Minh
+${full_name}     Minh Hoàng
 ${company}       SmartOSC Fintech
 ${telephone}     0345678910
 ${street}        136 Hồ Tùng Mậu
 ${is_default}    false
-${delivery_address_type}
+${delivery_address_type}    company
 ${region_id}    297
 ${city_id}      4
 ${ward_id}      3580

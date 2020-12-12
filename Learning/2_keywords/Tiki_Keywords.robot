@@ -6,6 +6,8 @@ Resource      ../imports.robot
 *** Keywords ***
 
 [Keyword] - Login Success
+
+#-------------------------------------------------------------------------
     #create a HTTP session to Tiki server
     Create Session    session_login    ${tiki_base_url}
     
@@ -29,11 +31,17 @@ Resource      ../imports.robot
     #Set access_token to become suite variable to use access token for all of tests in suite
     [Common] - Set suite variable    name=access_token    value=${access_token}
     
-    #Validate API with status code
+    #Validate API
     ${status_code}=    Convert To String    ${response.status_code}
+    ${reason}=    Convert To String    ${response.reason}
+    ${response_body}=    Convert To String    ${response.content}
+
     Should Be Equal    ${status_code}    200
+    Should Be Equal    ${reason}    OK
+    Should Contain    ${response_body}    token_type
     Request Should Be Successful    ${response}
 
+#-------------------------------------------------------------------------
 [Keyword] - Get List Addresses Success
     
     #create a HTTP session to Tiki server
@@ -46,7 +54,7 @@ Resource      ../imports.robot
     ...    x-access-token=${access_token}
 
     #Params data in API include page and limit
-    &{params}=    create dictionary
+    &{params}=    Create Dictionary
     ...    page=${page}
     ...    limit=${limit}
 
@@ -54,11 +62,50 @@ Resource      ../imports.robot
     ${response}=    Get Request    session_list_address    uri=${get_list_address}    headers=&{headers}    params=&{params}
     
     #Get id of first element in list addresses 
-    ${id}=    [Common] - Get value from response body    ${response.content}    $.data[0].id    
+    ${id}=    [Common] - Get value from response body    ${response.content}    $.data[2].id    
     #Set id to become suite variable to use id for all of tests in suite
     [Common] - Set suite variable    name=id    value=${id}
 
-    #Validate API with status code
+    #Validate API
     ${status_code}=    Convert To String    ${response.status_code}
+    ${response_body}=    Convert To String    ${response.content}
+    ${reason}=    Convert To String    ${response.reason}
+
+    Should Be Equal    ${status_code}    200
+    Should Be Equal    ${reason}    OK
+    Should Contain    ${response_body}    data
+    Request Should Be Successful    ${response}
+
+#-------------------------------------------------------------------------
+[Keyword] - Update Address With Specific Id
+
+    #create a HTTP session to Tiki server
+    Create Session    session_update    ${tiki_base_url}
+    
+    #Headers data into API include content type, user agent (if needed) and x-access-token get from API Login
+    &{headers}=    Create Dictionary    
+    ...    Content-Type=${content_type}
+    ...    User-Agent=${user_agent}
+    ...    x-access-token=${access_token}
+
+    #Body data in API
+    &{body}=    Create Dictionary    
+    ...    full_name=${full_name}
+    ...    company=${company}
+    ...    telephone=${telephone}
+    ...    street=${street}
+    ...    is_default=${is_default}
+    ...    delivery_address_type=${delivery_address_type}
+    ...    region_id=${region_id}
+    ...    city_id=${city_id}
+    ...    ward_id=${ward_id}
+
+    #Send request to server with method Put, uri with id get from api list address, header and body
+    ${response}=    Put Request    session_update    uri=${post_update_address}/${id}    headers=${headers}    data=${body} 
+        
+    #Validate API
+    ${status_code}=    Convert To String    ${response.status_code}
+    ${response_body}=    Convert To String    ${response.content}
     Should Be Equal    ${status_code}    200
     Request Should Be Successful    ${response}
+    Should Contain    ${response_body}    15394342
