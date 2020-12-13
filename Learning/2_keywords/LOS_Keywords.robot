@@ -59,10 +59,23 @@ Resource      ../imports.robot
     #Send request to server with method Post, uri, header and body
     ${response}=    Post Request    session_login    uri=${post_registerloan_url}    headers=${headers}    data=${body} 
     
-    #Validate API
+    #Validate API with status code
     ${status_code}=    Convert To String    ${response.status_code}
-    ${response_body}=    Convert To String    ${response.content}
-
     Should Be Equal    ${status_code}    200
-    # Should Contain    ${response_body}    token_type
-    Request Should Be Successful    ${response}
+
+    #Validate API with response body
+    # ${response_body}=    Convert To String    ${response.content}
+    # Should Contain    ${response_body}    15394342
+
+    #Validate API with reason
+    # ${reason}=    Convert To String    ${response.reason}
+    # Should Be Equal    ${reason}    OK
+
+    #Validate API: request fail if response status code is 4xx,5xx 
+    # Request Should Be Successful    ${response}
+
+    #Validate API with Headers
+    # ${contentType_value}    Get From Dictionary    ${response.headers}    Content-Type
+    # Should Be Equal    ${contentType_value}    text/json;charset=utf-8
+    
+    #Validate API with cookie:    ${response.cookies}

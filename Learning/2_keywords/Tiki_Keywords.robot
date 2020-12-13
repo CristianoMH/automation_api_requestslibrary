@@ -30,16 +30,28 @@ Resource      ../imports.robot
 
     #Set access_token to become suite variable to use access token for all of tests in suite
     [Common] - Set suite variable    name=access_token    value=${access_token}
-    
-    #Validate API
-    ${status_code}=    Convert To String    ${response.status_code}
-    ${reason}=    Convert To String    ${response.reason}
-    ${response_body}=    Convert To String    ${response.content}
 
+    #Validate API with status code
+    ${status_code}=    Convert To String    ${response.status_code}
     Should Be Equal    ${status_code}    200
-    Should Be Equal    ${reason}    OK
+
+    #Validate API with response body
+    ${response_body}=    Convert To String    ${response.content}
     Should Contain    ${response_body}    token_type
+
+    #Validate API with reason
+    ${reason}=    Convert To String    ${response.reason}
+    Should Be Equal    ${reason}    OK
+
+    #Validate API: request fail if response status code is 4xx,5xx 
     Request Should Be Successful    ${response}
+
+    #Validate API with Headers
+    ${contentType_value}    Get From Dictionary    ${response.headers}    Content-Type
+    Should Be Equal    ${contentType_value}    text/json;charset=utf-8
+    
+    #Validate API with cookie:    ${response.cookies}
+
 
 #-------------------------------------------------------------------------
 [Keyword] - Get List Addresses Success
@@ -66,15 +78,26 @@ Resource      ../imports.robot
     #Set id to become suite variable to use id for all of tests in suite
     [Common] - Set suite variable    name=id    value=${id}
 
-    #Validate API
+    #Validate API with status code
     ${status_code}=    Convert To String    ${response.status_code}
-    ${response_body}=    Convert To String    ${response.content}
-    ${reason}=    Convert To String    ${response.reason}
-
     Should Be Equal    ${status_code}    200
-    Should Be Equal    ${reason}    OK
+
+    #Validate API with response body
+    ${response_body}=    Convert To String    ${response.content}
     Should Contain    ${response_body}    data
+
+    #Validate API with reason
+    ${reason}=    Convert To String    ${response.reason}
+    Should Be Equal    ${reason}    OK
+
+    #Validate API: request fail if response status code is 4xx,5xx 
     Request Should Be Successful    ${response}
+
+    #Validate API with Headers
+    ${contentType_value}    Get From Dictionary    ${response.headers}    Content-Type
+    Should Be Equal    ${contentType_value}    text/json;charset=utf-8
+    
+    #Validate API with cookie:    ${response.cookies}
 
 #-------------------------------------------------------------------------
 [Keyword] - Update Address With Specific Id
@@ -101,11 +124,25 @@ Resource      ../imports.robot
     ...    ward_id=${ward_id}
 
     #Send request to server with method Put, uri with id get from api list address, header and body
-    ${response}=    Put Request    session_update    uri=${post_update_address}/${id}    headers=${headers}    data=${body} 
-        
-    #Validate API
+    ${response}=    Put Request    session_update    uri=${post_update_address}/${id}    headers=${headers}    data=${body}
+
+    #Validate API with status code
     ${status_code}=    Convert To String    ${response.status_code}
-    ${response_body}=    Convert To String    ${response.content}
     Should Be Equal    ${status_code}    200
-    Request Should Be Successful    ${response}
+
+    #Validate API with response body
+    ${response_body}=    Convert To String    ${response.content}
     Should Contain    ${response_body}    15394342
+
+    #Validate API with reason
+    ${reason}=    Convert To String    ${response.reason}
+    Should Be Equal    ${reason}    OK
+
+    #Validate API: request fail if response status code is 4xx,5xx 
+    Request Should Be Successful    ${response}
+
+    #Validate API with Headers
+    ${contentType_value}    Get From Dictionary    ${response.headers}    Content-Type
+    Should Be Equal    ${contentType_value}    text/json;charset=utf-8
+    
+    #Validate API with cookie:    ${response.cookies}
