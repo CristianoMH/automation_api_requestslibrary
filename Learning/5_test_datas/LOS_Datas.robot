@@ -37,5 +37,3 @@ ${emailAddress}    dinhmai230993@gmail.com
 ${address}    HN
 ${idCardNumber}    A123
 ${idType}    1
-
-
