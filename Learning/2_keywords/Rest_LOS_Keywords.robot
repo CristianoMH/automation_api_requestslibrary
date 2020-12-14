@@ -27,28 +27,28 @@ Resource      ../imports.robot
     ...   "status":"string",
     ...   "loanContactInformations": [
     ...    {
-    ...     "refType": "string",
-    ...     "refFullName": "string",
-    ...     "refPhoneNumber": "string",
-    ...     "refDob": "string",
-    ...     "refEmail": "string",
-    ...     "refAddress": "string"
+    ...      "refType": "string",
+    ...      "refFullName": "string",
+    ...      "refPhoneNumber": "string",
+    ...      "refDob": "string",
+    ...      "refEmail": "string",
+    ...      "refAddress": "string"
     ...    }
     ...   ],
     ...   "loanJobInformation": {
-    ...    "preTaxIncome":"string",
-    ...    "companyName":"string",
-    ...    "companyAddress":"string",
-    ...    "expense":"string"
+    ...     "preTaxIncome":"string",
+    ...     "companyName":"string",
+    ...     "companyAddress":"string",
+    ...     "expense":"string"
     ...   },
     ...   "loanPersonalInformation": {
-    ...    "fullName":"string",
-    ...    "phoneNumber":"string",
-    ...    "dateOfBirth":"string",
-    ...    "emailAddress":"string",
-    ...    "address":"string",
-    ...    "idCardNumber":"string",
-    ...    "idType":"string"
+    ...     "fullName":"string",
+    ...     "phoneNumber":"string",
+    ...     "dateOfBirth":"string",
+    ...     "emailAddress":"string",
+    ...     "address":"string",
+    ...     "idCardNumber":"string",
+    ...     "idType":"string"
     ...    }
     ...   }
     

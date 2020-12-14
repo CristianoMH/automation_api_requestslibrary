@@ -30,7 +30,7 @@ Resource    ./1_common/api_common/common.robot
 Resource    ./2_keywords/Request_Tiki_Keywords.robot
 Resource    ./2_keywords/Request_LOS_Keywords.robot
 Resource    ./2_keywords/Rest_LOS_Keywords.robot
-
+Resource    ./2_keywords/Rest_Tiki_Keywords.robot
 
 ### ROBOT TEST DATAS ###
 Resource    ./5_test_datas/config_url.robot
