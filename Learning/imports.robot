@@ -18,8 +18,8 @@ Resource    ./1_common/api_common/common.robot
 
 
 #### ROBOT KEYWORDS ####
-Resource    ./2_keywords/Tiki_Keywords.robot
-Resource    ./2_keywords/LOS_Keywords.robot
+Resource    ./2_keywords/Request_Tiki_Keywords.robot
+Resource    ./2_keywords/Request_LOS_Keywords.robot
 
 
 ### ROBOT TEST DATAS ###
