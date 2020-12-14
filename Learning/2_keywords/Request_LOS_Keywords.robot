@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Keywords for API
+Documentation    Keywords for API using Request library
 Resource      ../imports.robot
 
 

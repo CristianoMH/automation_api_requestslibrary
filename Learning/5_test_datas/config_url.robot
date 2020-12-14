@@ -28,4 +28,4 @@ ${los_base_url}             http://210.245.51.249:9001
 
 #URI
 #--- URI of login API
-${post_registerloan_url}      /los/loan-applications
+${post_registerloan_url}      los/loan-applications
