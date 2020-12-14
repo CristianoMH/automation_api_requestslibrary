@@ -54,8 +54,6 @@ Resource      ../imports.robot
     ...    loanJobInformation=&{dic_loanJobInformation}
     ...    loanPersonalInformation=&{loanPersonalInformation}
 
-    log to console    ------\n ${body}
-
     #Send request to server with method Post, uri, header and body
     ${response}=    Post Request    session_login    uri=${post_registerloan_url}    headers=${headers}    data=${body} 
     
@@ -71,11 +69,11 @@ Resource      ../imports.robot
     # ${reason}=    Convert To String    ${response.reason}
     # Should Be Equal    ${reason}    OK
 
-    #Validate API: request fail if response status code is 4xx,5xx 
-    # Request Should Be Successful    ${response}
+    # Validate API: request fail if response status code is 4xx,5xx 
+    Request Should Be Successful    ${response}
 
-    #Validate API with Headers
-    # ${contentType_value}    Get From Dictionary    ${response.headers}    Content-Type
-    # Should Be Equal    ${contentType_value}    text/json;charset=utf-8
+    # Validate API with Headers
+    ${contentType_value}    Get From Dictionary    ${response.headers}    Content-Type
+    Should Be Equal    ${contentType_value}    application/json
     
     #Validate API with cookie:    ${response.cookies}
