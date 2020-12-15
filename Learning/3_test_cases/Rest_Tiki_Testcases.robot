@@ -5,6 +5,7 @@ Resource          ../imports.robot
 *** Test Cases ***
 
 Login
+    [Tags]    tiki    login
     #Define body of request
     [Pre_Request] - Login - Body   $.grant_type=${grant_type}    $.email=${email}    $.password=${password}
     #Define header of request
@@ -15,9 +16,9 @@ Login
     ...     body=${body}
     
 Get List Adress
+    [Tags]    tiki    listAddress
     [Common][Pre_Request] - Authorization headers with access token    ${access_token}
-    REST.get             ${tiki_base_url}/${get_list_address}
-    ...    headers=${headers}
+    REST.get             ${tiki_base_url}/${get_list_address}    headers=${headers}
     rest extract
     ${id}    rest extract    $.data[1].id
     [Common] - Set suite variable    id    value=${id}
@@ -39,7 +40,9 @@ Get List Adress
 #     ...     body=${body}
 
 Update address
-    [Pre_Request] - Update address - Body   $.full_name=${full_name}
+    [Tags]    tiki    updateAddress
+    [Pre_Request] - Update address - Body   
+    ...    $.full_name=${full_name}
     ...    $.company=${company}
     ...    $.telephone=${telephone}
     ...    $.street=${street}

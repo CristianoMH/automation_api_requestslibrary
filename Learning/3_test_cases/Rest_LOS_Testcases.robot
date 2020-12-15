@@ -5,6 +5,7 @@ Resource          ../imports.robot
 *** Test Cases ***
 
 Register Loan
+    [Tags]    register
     [Pre_Request] - Register Loan - Body   
     ...    $.userId=${userId}
     ...    $.loanProductId=${loanProductId}
